@@ -44,7 +44,8 @@ class ItemResource extends Resource
                     ->required(),
                 TextInput::make('drop_chance')
                     ->integer()
-                    ->minLength(1),
+                    ->minLength(1)
+                    ->required(),
                 TextInput::make('description')
                     ->required()
             ]);
@@ -79,7 +80,7 @@ class ItemResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 
