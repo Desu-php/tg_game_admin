@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Item;
 
 use App\Filament\Resources\Item;
 use App\Models\Item\Rarity;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -29,6 +30,12 @@ class RarityResource extends Resource
                 TextInput::make('drop_weight')
                     ->integer()
                     ->required(),
+                ColorPicker::make('color')
+                    ->hexColor()
+                    ->required(),
+                TextInput::make('sort')
+                    ->integer()
+                    ->required(),
             ]);
     }
 
@@ -46,6 +53,9 @@ class RarityResource extends Resource
                     ->sortable(),
                 TextColumn::make('description')
                     ->limit(),
+                TextColumn::make('color'),
+                TextColumn::make('sort')
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime(),
                 TextColumn::make('updated_at')
