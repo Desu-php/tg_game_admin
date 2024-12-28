@@ -13,7 +13,7 @@ services:
       - ./:/var/www/html
       - ./docker/php/conf.d/custom.ini:/usr/local/etc/php/php.ini
     networks:
-      - laravel_network
+      - mynetwork
 
   webserver:
     image: nginx:alpine
@@ -25,10 +25,10 @@ services:
       - ./:/var/www/html
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - laravel_network
+      - mynetwork
     depends_on:
       - app
 
 networks:
-  laravel_network:
+  mynetwork:
     driver: bridge
