@@ -4,7 +4,9 @@ namespace App\Filament\Resources\User;
 
 use App\Filament\Resources\User\UserResource\Pages;
 use App\Filament\Resources\User\UserResource\RelationManagers;
+use App\Models\Chest;
 use App\Models\Client\User;
+use Filament\Facades\Filament;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -21,9 +23,7 @@ class UserResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-
-            ]);
+            ->schema([]);
     }
 
     public static function table(Table $table): Table
@@ -39,9 +39,12 @@ class UserResource extends Resource
                     ->label('Level')
                     ->sortable(),
                 TextColumn::make('userChest.health')
-                ->label('HP'),
+                    ->label('HP'),
                 TextColumn::make('userChest.current_health')
-                ->label('Current HP'),
+                    ->label('Current HP'),
+                TextColumn::make('userChest.Chest.name')
+                    ->label("Chest")
+                    ->url(fn(User $user) => Filament::getResourceUrl($user->userChest->Chest, 'edit', ['record' => $user->userChest->Chest])),
                 TextColumn::make('created_at')
                     ->dateTime(),
                 TextColumn::make('updated_at')
