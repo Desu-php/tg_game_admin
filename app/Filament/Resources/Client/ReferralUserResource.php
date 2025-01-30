@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Client;
 
 use App\Filament\Resources\Client\ReferralUserResource\Pages;
 use App\Filament\Resources\Client\ReferralUserResource\RelationManagers;
+use App\Filament\Resources\User\UserResource;
 use App\Models\Client\ReferralUser;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -20,6 +21,11 @@ class ReferralUserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with(['user', 'referredUser']);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -35,12 +41,18 @@ class ReferralUserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.id')
+                Tables\Columns\TextColumn::make('user.username')
                                          ->numeric()
-                                         ->sortable(),
-                Tables\Columns\TextColumn::make('referredUser.id')
+                                         ->sortable()
+                                         ->url(fn(ReferralUser $referralUser) => UserResource::getUrl('edit', [
+                                             'record' => $referralUser->user
+                                         ])),
+                Tables\Columns\TextColumn::make('referredUser.username')
                                          ->numeric()
-                                         ->sortable(),
+                                         ->sortable()
+                                         ->url(fn(ReferralUser $referralUser) => UserResource::getUrl('edit', [
+                                             'record' => $referralUser->referredUser
+                                         ])),
                 Tables\Columns\TextColumn::make('created_at')
                                          ->dateTime()
                                          ->sortable()
