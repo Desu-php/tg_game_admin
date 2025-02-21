@@ -31,27 +31,33 @@ class ChestResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->required(),
+                         ->required(),
                 FileUpload::make('image')
-                    ->required(),
+                          ->required(),
                 TextInput::make('health')
-                    ->integer()
-                    ->minLength(1),
+                         ->integer()
+                         ->minLength(1),
                 Toggle::make('is_default')
-                    ->required(),
+                      ->required(),
                 TextInput::make('growth_factor')
-                    ->required()
-                    ->numeric(),
+                         ->required()
+                         ->numeric(),
+                TextInput::make('amount_growth_factor')
+                         ->required()
+                         ->numeric(),
+                TextInput::make('amount')
+                         ->required()
+                         ->integer(),
                 TextInput::make('start_level')
-                    ->integer()
-                    ->required(),
+                         ->integer()
+                         ->required(),
                 TextInput::make('end_level')
-                    ->integer()
-                    ->required(),
+                         ->integer()
+                         ->required(),
                 Select::make('rarity_id')
-                    ->options(Rarity::query()->pluck('name', 'id'))
-                    ->searchable()
-                    ->required(),
+                      ->options(Rarity::query()->pluck('name', 'id'))
+                      ->searchable()
+                      ->required(),
             ]);
     }
 
@@ -66,6 +72,8 @@ class ChestResource extends Resource
                 TextColumn::make('is_default'),
                 TextColumn::make('is_default'),
                 TextColumn::make('growth_factor'),
+                TextColumn::make('amount'),
+                TextColumn::make('amount_growth_factor'),
                 TextColumn::make('start_level'),
                 TextColumn::make('end_level'),
                 TextColumn::make('rarity.name'),
@@ -95,9 +103,9 @@ class ChestResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListChests::route('/'),
+            'index'  => Pages\ListChests::route('/'),
             'create' => Pages\CreateChest::route('/create'),
-            'edit' => Pages\EditChest::route('/{record}/edit'),
+            'edit'   => Pages\EditChest::route('/{record}/edit'),
         ];
     }
 }
