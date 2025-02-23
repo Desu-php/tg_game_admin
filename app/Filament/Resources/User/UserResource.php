@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\User;
 
+use App\Filament\Resources\Client\ReferralUserResource;
 use App\Filament\Resources\User\UserResource\Pages;
 use App\Filament\Resources\User\UserResource\RelationManagers;
 use App\Models\Chest;
+use App\Models\Client\ReferralUser;
 use App\Models\Client\User;
 use Filament\Facades\Filament;
 use Filament\Forms\Form;
@@ -12,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class UserResource extends Resource
@@ -26,30 +29,49 @@ class UserResource extends Resource
             ->schema([]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return User::query()->with([
+            'userChest.chest',
+            'userStat'
+        ])
+                   ->withCount('referrals');
+    }
+
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->sortable(),
+                          ->sortable(),
                 TextColumn::make('telegram_id')
-                    ->sortable(),
+                          ->sortable(),
                 TextColumn::make('username'),
                 TextColumn::make('userChest.level')
-                    ->label('Level')
-                    ->sortable(),
+                          ->label('Level')
+                          ->sortable(),
                 TextColumn::make('userChest.health')
-                    ->label('HP'),
+                          ->label('HP'),
                 TextColumn::make('userChest.current_health')
-                    ->label('Current HP'),
+                          ->label('Current HP'),
                 TextColumn::make('balance.balance'),
                 TextColumn::make('userChest.Chest.name')
-                    ->label("Chest")
-                    ->url(fn(User $user) => Filament::getResourceUrl($user->userChest->Chest, 'edit', ['record' => $user->userChest->Chest])),
+                          ->label('Chest')
+                          ->url(fn(User $user) => Filament::getResourceUrl($user->userChest->Chest, 'edit', ['record' => $user->userChest->Chest])),
+                TextColumn::make('referrals_count')
+                          ->label('Referrals')
+                          ->sortable()
+                          ->url(fn(User $user) => ReferralUserResource::getUrl('index', [
+                              'tableFilters' => [
+                                  'user_id' => [
+                                      'value' => $user->id,
+                                  ],
+                              ],
+                          ])),
                 TextColumn::make('created_at')
-                    ->dateTime(),
+                          ->dateTime(),
                 TextColumn::make('updated_at')
-                    ->dateTime(),
+                          ->dateTime(),
             ])
             ->filters([
                 //
@@ -74,9 +96,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
+            'index'  => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'edit'   => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

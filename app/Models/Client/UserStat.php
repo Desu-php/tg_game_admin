@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\Client;
 
-use App\Models\Client\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
