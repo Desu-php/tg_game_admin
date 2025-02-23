@@ -4,6 +4,7 @@ namespace App\Models\Client;
 
 use App\Models\User\UserStat;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Model
@@ -18,5 +19,10 @@ class User extends Model
     public function userStat(): HasOne
     {
         return $this->hasOne(UserStat::class);
+    }
+
+    public function balance(): HasOne
+    {
+        return $this->hasOne(Balance::class);
     }
 }

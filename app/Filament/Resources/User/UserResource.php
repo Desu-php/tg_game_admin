@@ -42,6 +42,7 @@ class UserResource extends Resource
                     ->label('HP'),
                 TextColumn::make('userChest.current_health')
                     ->label('Current HP'),
+                TextColumn::make('balance.balance'),
                 TextColumn::make('userChest.Chest.name')
                     ->label("Chest")
                     ->url(fn(User $user) => Filament::getResourceUrl($user->userChest->Chest, 'edit', ['record' => $user->userChest->Chest])),
