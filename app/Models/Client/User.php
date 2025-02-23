@@ -2,7 +2,6 @@
 
 namespace App\Models\Client;
 
-use App\Models\User\UserStat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
