@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum AspectTypeEnum: string
 {
-    case Aspect = 'aspects';
+    case Aspect = 'aspect';
     case Booster = 'booster';
 
     public static function values(): array
