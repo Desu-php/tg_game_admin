@@ -68,6 +68,11 @@ class AspectStatResource extends Resource
                     ->minValue(0)
                     ->required()
                     ->default(0),
+                Forms\Components\TextInput::make('passive_damage')
+                    ->numeric()
+                    ->minValue(0)
+                    ->required()
+                    ->default(0),
             ]);
     }
 
@@ -85,6 +90,7 @@ class AspectStatResource extends Resource
                 Tables\Columns\TextColumn::make('gold_multiplier'),
                 Tables\Columns\TextColumn::make('amount'),
                 Tables\Columns\TextColumn::make('amount_growth_factor'),
+                Tables\Columns\TextColumn::make('passive_damage'),
                 Tables\Columns\TextColumn::make('created_at'),
                 Tables\Columns\TextColumn::make('updated_at'),
             ])

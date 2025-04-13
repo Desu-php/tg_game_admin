@@ -53,6 +53,10 @@ class UserStatResource extends Resource
                     ->minValue(0)
                     ->step(0.01)
                     ->required(),
+                TextInput::make('passive_damage')
+                    ->numeric()
+                    ->minValue(0)
+                    ->required(),
             ]);
     }
 
@@ -68,6 +72,7 @@ class UserStatResource extends Resource
                 TextColumn::make('critical_damage'),
                 TextColumn::make('critical_chance'),
                 TextColumn::make('gold_multiplier'),
+                TextColumn::make('passive_damage'),
             ])
             ->filters([
                 //
