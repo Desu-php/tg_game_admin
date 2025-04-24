@@ -47,7 +47,29 @@ class ItemResource extends Resource
                     ->minLength(1)
                     ->required(),
                 TextInput::make('description')
-                    ->required()
+                    ->required(),
+                TextInput::make('damage')
+                    ->integer()
+                    ->minValue(0)
+                    ->required(),
+                TextInput::make('critical_damage')
+                    ->integer()
+                    ->minValue(0)
+                    ->required(),
+                TextInput::make('critical_chance')
+                    ->numeric()
+                    ->minValue(0)
+                    ->step(0.01)
+                    ->required(),
+                TextInput::make('gold_multiplier')
+                    ->numeric()
+                    ->minValue(0)
+                    ->step(0.01)
+                    ->required(),
+                TextInput::make('passive_damage')
+                    ->numeric()
+                    ->minValue(0)
+                    ->required(),
             ]);
     }
 
@@ -61,6 +83,11 @@ class ItemResource extends Resource
                 TextColumn::make('type.name')->sortable(),
                 TextColumn::make('drop_chance')->sortable(),
                 TextColumn::make('description')->sortable(),
+                TextColumn::make('damage'),
+                TextColumn::make('critical_damage'),
+                TextColumn::make('critical_chance'),
+                TextColumn::make('gold_multiplier'),
+                TextColumn::make('passive_damage'),
                 TextColumn::make('created_at')->dateTime(),
                 TextColumn::make('updated_at')->dateTime(),
             ])
