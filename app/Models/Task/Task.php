@@ -13,6 +13,7 @@ class Task extends Model
     {
         return [
             'type' => TaskTypeEnum::class,
+            'data' => 'json'
         ];
     }
 }

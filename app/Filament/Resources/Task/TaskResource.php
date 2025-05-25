@@ -34,6 +34,7 @@ class TaskResource extends Resource
                 Forms\Components\Select::make('type')
                     ->options(TaskTypeEnum::class)
                     ->enum(TaskTypeEnum::class)
+                    ->reactive()
                     ->required(),
                 TextInput::make('target_value')
                     ->integer()
@@ -42,7 +43,13 @@ class TaskResource extends Resource
                 TextInput::make('amount')
                     ->integer()
                     ->minValue(1)
-                    ->required()
+                    ->required(),
+                TextInput::make('data.link')
+                    ->label('Link')
+                    ->visible(fn(callable $get) => $get('type') === TaskTypeEnum::ClickLink->value)
+                    ->required(fn(callable $get) => $get('type') === TaskTypeEnum::ClickLink->value)
+                    ->url()
+                    ->maxLength(255),
             ]);
     }
 
