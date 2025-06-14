@@ -78,7 +78,6 @@ class ItemResource extends Resource
                     ->maxValue(2147483647)
                     ->required(),
                 Checkbox::make('is_nft')
-                    ->required()
                     ->default(false)
             ]);
     }
