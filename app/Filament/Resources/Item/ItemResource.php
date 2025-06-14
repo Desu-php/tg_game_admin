@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Item;
 use App\Models\Item\Item;
 use App\Models\Item\ItemType;
 use App\Models\Item\Rarity;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -70,6 +71,15 @@ class ItemResource extends Resource
                     ->numeric()
                     ->minValue(0)
                     ->required(),
+                TextInput::make('quantity')
+                    ->integer()
+                    ->minValue(1)
+                    ->default(2147483647)
+                    ->maxValue(2147483647)
+                    ->required(),
+                Checkbox::make('is_nft')
+                    ->required()
+                    ->default(false)
             ]);
     }
 
@@ -88,6 +98,8 @@ class ItemResource extends Resource
                 TextColumn::make('critical_chance'),
                 TextColumn::make('gold_multiplier'),
                 TextColumn::make('passive_damage'),
+                TextColumn::make('quantity'),
+                Tables\Columns\CheckboxColumn::make('is_nft'),
                 TextColumn::make('created_at')->dateTime(),
                 TextColumn::make('updated_at')->dateTime(),
             ])

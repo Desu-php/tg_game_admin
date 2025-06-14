@@ -9,6 +9,14 @@ class Item extends Model
 {
     protected $guarded = [];
 
+
+    protected function casts(): array
+    {
+        return [
+            'is_nft' => 'bool',
+        ];
+    }
+
     public function rarity(): BelongsTo
     {
         return $this->belongsTo(Rarity::class);
