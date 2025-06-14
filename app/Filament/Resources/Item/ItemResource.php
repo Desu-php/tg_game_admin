@@ -99,7 +99,7 @@ class ItemResource extends Resource
                 TextColumn::make('gold_multiplier'),
                 TextColumn::make('passive_damage'),
                 TextColumn::make('quantity'),
-                Tables\Columns\CheckboxColumn::make('is_nft'),
+                TextColumn::make('is_nft'),
                 TextColumn::make('created_at')->dateTime(),
                 TextColumn::make('updated_at')->dateTime(),
             ])
