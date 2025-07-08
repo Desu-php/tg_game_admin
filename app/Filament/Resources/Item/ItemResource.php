@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Item;
 use App\Models\Item\Item;
 use App\Models\Item\ItemType;
 use App\Models\Item\Rarity;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -47,7 +48,37 @@ class ItemResource extends Resource
                     ->minLength(1)
                     ->required(),
                 TextInput::make('description')
-                    ->required()
+                    ->required(),
+                TextInput::make('damage')
+                    ->integer()
+                    ->minValue(0)
+                    ->required(),
+                TextInput::make('critical_damage')
+                    ->integer()
+                    ->minValue(0)
+                    ->required(),
+                TextInput::make('critical_chance')
+                    ->numeric()
+                    ->minValue(0)
+                    ->step(0.01)
+                    ->required(),
+                TextInput::make('gold_multiplier')
+                    ->numeric()
+                    ->minValue(0)
+                    ->step(0.01)
+                    ->required(),
+                TextInput::make('passive_damage')
+                    ->numeric()
+                    ->minValue(0)
+                    ->required(),
+                TextInput::make('quantity')
+                    ->integer()
+                    ->minValue(1)
+                    ->default(2147483647)
+                    ->maxValue(2147483647)
+                    ->required(),
+                Checkbox::make('is_nft')
+                    ->default(false)
             ]);
     }
 
@@ -62,6 +93,13 @@ class ItemResource extends Resource
                 TextColumn::make('type.name')->sortable(),
                 TextColumn::make('drop_chance')->sortable(),
                 TextColumn::make('description')->sortable(),
+                TextColumn::make('damage'),
+                TextColumn::make('critical_damage'),
+                TextColumn::make('critical_chance'),
+                TextColumn::make('gold_multiplier'),
+                TextColumn::make('passive_damage'),
+                TextColumn::make('quantity'),
+                TextColumn::make('is_nft'),
                 TextColumn::make('created_at')->dateTime(),
                 TextColumn::make('updated_at')->dateTime(),
             ])

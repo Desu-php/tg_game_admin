@@ -36,6 +36,11 @@ class RarityResource extends Resource
                 TextInput::make('sort')
                     ->integer()
                     ->required(),
+                TextInput::make('craft_chance')
+                    ->numeric()
+                    ->minValue(0)
+                    ->step(0.01)
+                    ->required(),
             ]);
     }
 
@@ -55,6 +60,8 @@ class RarityResource extends Resource
                     ->limit(),
                 TextColumn::make('color'),
                 TextColumn::make('sort')
+                    ->sortable(),
+                TextColumn::make('craft_chance')
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime(),
