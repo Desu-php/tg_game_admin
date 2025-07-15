@@ -14,4 +14,9 @@ class Chest extends Model
     {
         return $this->belongsTo(Rarity::class);
     }
+
+    public function maxRarity(): BelongsTo
+    {
+        return $this->belongsTo(Rarity::class, 'max_rarity_id', 'id');
+    }
 }
