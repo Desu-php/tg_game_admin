@@ -88,6 +88,7 @@ class ItemResource extends Resource
             ->columns([
                 TextColumn::make('id')->sortable(),
                 ImageColumn::make('image'),
+                TextColumn::make('name'),
                 TextColumn::make('rarity.name')->sortable(),
                 TextColumn::make('type.name')->sortable(),
                 TextColumn::make('drop_chance')->sortable(),
